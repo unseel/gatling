@@ -13,8 +13,12 @@ WORKDIR /opt
 # gating version
 ENV GATLING_VERSION 3.7.2
 
+# specify simulation
+ENV simulation ""
+
 # create directory for gatling install
 RUN mkdir -p gatling
+
 
 # install gatling
 RUN apk add --update wget bash libc6-compat && \
@@ -36,4 +40,4 @@ VOLUME ["/opt/gatling/conf", "/opt/gatling/results", "/opt/gatling/user-files"]
 ENV PATH /opt/gatling/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV GATLING_HOME /opt/gatling
 
-ENTRYPOINT ["gatling.sh"]
+ENTRYPOINT "gatling.sh" "-s" $simulation
